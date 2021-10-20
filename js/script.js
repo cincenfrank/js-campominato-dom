@@ -19,6 +19,11 @@ playBtn.addEventListener("click", function () {
   generateGrid(cellNum, bombsArray);
 });
 
+/**
+ * Generates cells Grid
+ * @param {number} cellsNumber
+ * @param {[number]} bombsArray
+ */
 function generateGrid(cellsNumber, bombsArray) {
   const colNumber = Math.sqrt(cellsNumber);
   const cellSize = 100 / colNumber;
@@ -32,14 +37,14 @@ function generateGrid(cellsNumber, bombsArray) {
       cell.hint = countOccurrencesInArray(hintsArray, i);
       // cell.textContent = countOccurrencesInArray(hintsArray, i); // USED FOR DEBUG
     }
-    const isBomb = bombsArray.includes(i);
-
     cell.addEventListener("click", onCellClick);
-
     gridContainer.appendChild(cell);
   }
 }
 
+/**
+ * Resets game variables to start a new game
+ */
 function resetGame() {
   gridContainer.innerHTML = "";
   playerScore = 0;
@@ -47,6 +52,9 @@ function resetGame() {
   updateScore();
 }
 
+/**
+ * cell click callback
+ */
 function onCellClick() {
   if (!gameOver) {
     let isBomb = bombsArray.includes(this.cellIndex);
@@ -68,6 +76,9 @@ function onCellClick() {
   }
 }
 
+/**
+ * Sets game over and changes message of score result text
+ */
 function setGameOver() {
   discoverBombs();
   gameOver = true;
@@ -80,10 +91,17 @@ function setGameOver() {
   updateScore(endText);
 }
 
+/**
+ * Updates the score result text
+ * @param {string} text
+ */
 function updateScore(text = `Your score is ${playerScore}`) {
   scoreText.textContent = text;
 }
 
+/**
+ * Show all the bombs
+ */
 function discoverBombs() {
   const cellsArray = gridContainer.children;
   for (let i = 0; i < cellsArray.length; i++) {
@@ -115,6 +133,12 @@ function getCellsNumber(level) {
   return cellNumber;
 }
 
+/**
+ * create an array of int representing bombs indexes
+ * @param {number} cellsNumber
+ * @param {number} bombsNumber
+ * @returns {[number]}
+ */
 function generateBombs(cellsNumber, bombsNumber = 16) {
   const bombsArray = [];
   while (bombsArray.length < bombsNumber) {
@@ -141,6 +165,13 @@ function generateRandomNumber(maxNumber) {
   return randomNumber;
 }
 
+/**
+ * Generates an array of integers. each integer represents the the index of a grid cells that is located near a bomb
+ * (in order to count the number of bombs that are near a given cell it can be used the function countOccurrencesInArray() )
+ * @param {[number]} bombsArray
+ * @param {number} cellsNumber
+ * @returns {[number]}
+ */
 function generateHintsArray(bombsArray, cellsNumber) {
   const hintsArray = [];
   for (let i = 0; i < bombsArray.length; i++) {
@@ -212,6 +243,14 @@ function generateHintsArray(bombsArray, cellsNumber) {
   return hintsArray;
 }
 
+/**
+ * return a string representing the position of the cell in the grid.
+ * This methods check if the input index is located on the perimeter of the grid and eventually returns the location.
+ * if the cell is not on the perimeter, it returns "standard"
+ * @param {number} cellIndex
+ * @param {number} cellsNumber
+ * @returns {string}
+ */
 function getCellPositionType(cellIndex, cellsNumber) {
   let columnsNumber = Math.sqrt(cellsNumber);
   if (cellIndex <= columnsNumber) {
@@ -236,6 +275,12 @@ function getCellPositionType(cellIndex, cellsNumber) {
   return "standard";
 }
 
+/**
+ * Counts how many times a value is present inside an array. returns 0 in case of value not present.
+ * @param {[any]} array
+ * @param {any} valueToMatch
+ * @returns
+ */
 function countOccurrencesInArray(array, valueToMatch) {
   let occurrences = 0;
   for (let i = 0; i < array.length; i++) {
