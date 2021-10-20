@@ -6,12 +6,21 @@
 
 main {
   background-color: aquamarine;
-  padding-top: 100px;
+}
+
+footer {
+  padding: 16px;
+}
+.container {
+  position: relative;
+
   padding-bottom: 100px;
   min-height: 80vh;
 }
-footer {
-  padding: 16px;
+.score-text {
+  font-size: 30px;
+  padding: 30px;
+  text-align: center;
 }
 .row {
   display: flex;
@@ -61,4 +70,11 @@ footer {
 .cell.selected {
   background-color: #6e87ea;
   color: white;
+}
+.cell.bomb {
+  background-color: red;
+  color: white;
+}
+.cell.bomb::after {
+  content: "💣";
 }
