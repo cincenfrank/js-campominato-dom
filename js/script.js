@@ -1,3 +1,5 @@
+"use strict";
+
 const levelSelect = document.getElementById("difficulty-level-select");
 const playBtn = document.getElementById("start-button");
 const gridContainer = document.querySelector(".grid-container");
@@ -104,8 +106,8 @@ function updateScore(text = `Your score is ${playerScore}`) {
  */
 function discoverBombs() {
   const cellsArray = gridContainer.children;
-  for (let i = 0; i < cellsArray.length; i++) {
-    const cell = cellsArray[i];
+  for (let i = 0; i < bombsArray.length; i++) {
+    const cell = cellsArray[bombsArray[i] - 1];
     if (bombsArray.includes(cell.cellIndex)) {
       cell.classList.add("bomb");
     }
